@@ -2,6 +2,6 @@ package gamecomponents;
 
 import engine.VisualElement;
 
-public interface VisibleElement {
+public interface GameboardElement {
 	public VisualElement getSkin();
 }

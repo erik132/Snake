@@ -43,6 +43,9 @@ public class Main {
         Player player = new Player(new PlayerSkin(1,1));
         GameEngine engine = new GameEngine(new Gameboard(player));
         canvas.addGLEventListener(engine);
+        canvas.addKeyListener(engine);
+        canvas.addMouseListener(engine);
+        canvas.addMouseMotionListener(engine);
 
         FPSAnimator animator = new FPSAnimator(canvas, 60);
         animator.start();

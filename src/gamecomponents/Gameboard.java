@@ -6,7 +6,7 @@ import java.util.List;
 import engine.VisualElement;
 
 public class Gameboard {
-	private List<VisibleElement> visibles = new ArrayList<>();
+	private List<GameboardElement> visibles = new ArrayList<>();
 	
 	public Gameboard(Player player){
 		populateBoard();
@@ -23,18 +23,18 @@ public class Gameboard {
 	
 	public List<VisualElement> getVisuals(){
 		List<VisualElement> visuals = new ArrayList<>();
-		for(VisibleElement ve : this.visibles){
+		for(GameboardElement ve : this.visibles){
 			visuals.add(ve.getSkin());
 		}
 		return visuals;
 	}
 	
-	public List<VisibleElement> getVisibles() {
+	public List<GameboardElement> getVisibles() {
 		return visibles;
 	}
 	
 
-	public void setVisibles(List<VisibleElement> visibles) {
+	public void setVisibles(List<GameboardElement> visibles) {
 		this.visibles = visibles;
 	}
 }

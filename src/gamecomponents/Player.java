@@ -2,7 +2,7 @@ package gamecomponents;
 
 import engine.VisualElement;
 
-public class Player implements VisibleElement{
+public class Player implements GameboardElement{
 	
 	private VisualElement skin;
 	
