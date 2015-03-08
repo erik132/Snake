@@ -8,6 +8,8 @@ import engine.VisualElement;
 public class Gameboard {
 	private List<GameboardElement> visibles = new ArrayList<>();
 	
+	private Player player;
+	
 	public Gameboard(Player player){
 		populateBoard();
 		placePlayer(player);
@@ -19,6 +21,12 @@ public class Gameboard {
 	
 	private void placePlayer(Player player){
 		this.visibles.add(player);
+		this.player = player;
+	}
+	
+	
+	public void Tick(){
+		this.player.move();
 	}
 	
 	public List<VisualElement> getVisuals(){

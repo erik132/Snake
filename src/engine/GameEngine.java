@@ -21,10 +21,18 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 	
 	private VisualElementDrawer drawer;
 	
+	private List<InputReceiver> inputListeners = new ArrayList<>();
+	
 	
 	public GameEngine(Gameboard gameboard){
 		this.gameboard = gameboard;
 		this.drawer = new VisualElementDrawer();
+	}
+	
+	private void drawVisuals(List<VisualElement> elements, GL2 gl){
+		for(VisualElement element : elements){
+			element.drawElement(gl);
+		}
 	}
 	
 	@Override
@@ -53,10 +61,9 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 		
 	}
 	
-	private void drawVisuals(List<VisualElement> elements, GL2 gl){
-		for(VisualElement element : elements){
-			element.drawElement(gl);
-		}
+	
+	public void addInputReceiver(InputReceiver inputReceiver){
+		this.inputListeners.add(inputReceiver);
 	}
 
 	@Override
@@ -103,7 +110,10 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		//System.out.println(arg0.getKeyCode());
+		for(InputReceiver inputter : this.inputListeners){
+			inputter.receiveInput(arg0.getKeyCode());
+		}
 		
 	}
 

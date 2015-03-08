@@ -40,7 +40,7 @@ public class Main {
             }
         });
         
-        Player player = new Player(new PlayerSkin(1,1));
+        Player player = new Player(new PlayerSkin(0.5,0.5));
         GameEngine engine = new GameEngine(new Gameboard(player));
         canvas.addGLEventListener(engine);
         canvas.addKeyListener(engine);
