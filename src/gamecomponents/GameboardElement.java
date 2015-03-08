@@ -1,7 +1,9 @@
 package gamecomponents;
 
+import java.util.List;
+
 import engine.VisualElement;
 
 public interface GameboardElement {
-	public VisualElement getSkin();
+	public List<VisualElement> getSkin();
 }

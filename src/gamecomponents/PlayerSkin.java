@@ -13,7 +13,7 @@ public class PlayerSkin extends VisualElement{
 
 	@Override
 	public void drawElement(GL2 gl) {
-		this.drawSquare(gl, 0.5);
+		this.drawSquare(gl, 0.1);
 		
 	}
 

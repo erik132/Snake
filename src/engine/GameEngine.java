@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import gamecomponents.Gameboard;
 import gamecomponents.GameboardElement;
@@ -19,14 +21,19 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 	
 	private Gameboard gameboard;
 	
-	private VisualElementDrawer drawer;
+	private Timer timer;
+	
+	private int gameTickTime = 100;
 	
 	private List<InputReceiver> inputListeners = new ArrayList<>();
 	
 	
 	public GameEngine(Gameboard gameboard){
 		this.gameboard = gameboard;
-		this.drawer = new VisualElementDrawer();
+		this.timer = new Timer();
+		
+		this.timer.scheduleAtFixedRate(new GameboardTicker(this.gameboard), this.gameTickTime, this.gameTickTime);
+		
 	}
 	
 	private void drawVisuals(List<VisualElement> elements, GL2 gl){
@@ -50,6 +57,7 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
+		gl.glClear(gl.GL_COLOR_BUFFER_BIT);
 		this.drawVisuals(this.gameboard.getVisuals(),gl);
 		
 	}

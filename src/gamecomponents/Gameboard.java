@@ -3,9 +3,12 @@ package gamecomponents;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.Point;
+
 import engine.VisualElement;
 
 public class Gameboard {
+	
 	private List<GameboardElement> visibles = new ArrayList<>();
 	
 	private Player player;
@@ -25,14 +28,23 @@ public class Gameboard {
 	}
 	
 	
-	public void Tick(){
-		this.player.move();
+	public synchronized void tick(){
+
+		Point point = this.player.move();
+		if(point == null){
+			return ;
+		}
+
+		if(this.player.detectCollision(point)){
+			this.loseGame();
+			return ;
+		}
 	}
 	
 	public List<VisualElement> getVisuals(){
 		List<VisualElement> visuals = new ArrayList<>();
 		for(GameboardElement ve : this.visibles){
-			visuals.add(ve.getSkin());
+			visuals.addAll(ve.getSkin());
 		}
 		return visuals;
 	}
@@ -44,5 +56,13 @@ public class Gameboard {
 
 	public void setVisibles(List<GameboardElement> visibles) {
 		this.visibles = visibles;
+	}
+	
+	public void winGame(){
+		
+	}
+	
+	public void loseGame(){
+		
 	}
 }

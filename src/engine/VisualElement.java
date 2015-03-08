@@ -3,6 +3,8 @@ package engine;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
+import common.Point;
+
 public abstract class VisualElement {
 	
 	private double xCord;
@@ -30,6 +32,35 @@ public abstract class VisualElement {
         gl.glVertex2d(this.xCord, this.yCord - size);
         
         gl.glEnd();
+	}
+	
+	
+	public boolean equals(Point point){
+		if(point.getX() == this.xCord && point.getY() == this.getyCord()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof VisualElement){
+			VisualElement element = (VisualElement) obj;
+			if(element.getxCord() == this.xCord && element.getyCord() == this.getyCord()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void setPoint(Point point){
+		this.xCord = point.getX();
+		this.yCord = point.getY();
+	}
+	
+	public Point getPoint(){
+		return new Point(this.xCord,this.yCord);
 	}
 
 	public double getxCord() {
