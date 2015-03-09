@@ -8,10 +8,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import gamecomponents.Gameboard;
-import gamecomponents.GameboardElement;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -32,7 +30,14 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 		this.gameboard = gameboard;
 		this.timer = new Timer();
 		
-		this.timer.scheduleAtFixedRate(new GameboardTicker(this.gameboard), this.gameTickTime, this.gameTickTime);
+		this.timer.scheduleAtFixedRate(new GameboardTicker(this.gameboard, this), this.gameTickTime, this.gameTickTime);
+		
+	}
+	
+	public void endGame(String message){
+		System.out.println(message);
+		this.gameboard.resetBoard();
+		
 		
 	}
 	
@@ -58,6 +63,8 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+		gl.glLoadIdentity();
+		
 		this.drawVisuals(this.gameboard.getVisuals(),gl);
 		
 	}

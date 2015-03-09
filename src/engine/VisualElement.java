@@ -3,9 +3,10 @@ package engine;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
+import common.MathLib;
 import common.Point;
 
-public abstract class VisualElement {
+public abstract class VisualElement extends MathLib{
 	
 	private double xCord;
 	
@@ -25,21 +26,33 @@ public abstract class VisualElement {
 	protected void drawSquare(GL2 gl,double size){
         gl.glBegin(GL2.GL_QUADS);
         
-        gl.glColor3f(1, 0, 0);
+        //gl.glColor3f(1, 0, 0);
         gl.glVertex2d(this.xCord + size, this.yCord - size);
-        gl.glColor3f(0, 1, 0);
+        //gl.glColor3f(0, 1, 0);
         gl.glVertex2d(this.xCord + size, this.yCord);
-        gl.glColor3f(0, 0, 1);
+        //gl.glColor3f(0, 0, 1);
         gl.glVertex2d(this.xCord, this.yCord);
-        gl.glColor3f(1, 1, 0);
+        //gl.glColor3f(1, 1, 0);
         gl.glVertex2d(this.xCord, this.yCord - size);
         
         gl.glEnd();
 	}
 	
+	protected void drawRectangle(GL2 gl,double x1, double y1, double x2, double y2){
+		
+		gl.glBegin(GL2.GL_QUADS);
+		
+		gl.glVertex2d(x1, y1);
+		gl.glVertex2d(x2, y1);
+		gl.glVertex2d(x2, y2);
+		gl.glVertex2d(x1, y2);
+		
+		gl.glEnd();
+	}
+	
 	
 	public boolean equals(Point point){
-		if(point.getX() == this.xCord && point.getY() == this.getyCord()){
+		if(this.compareDouble(point.getX(), this.xCord) && this.compareDouble(point.getY(), this.getyCord())){
 			return true;
 		}else{
 			return false;
@@ -50,7 +63,7 @@ public abstract class VisualElement {
 	public boolean equals(Object obj){
 		if(obj instanceof VisualElement){
 			VisualElement element = (VisualElement) obj;
-			if(element.getxCord() == this.xCord && element.getyCord() == this.getyCord()){
+			if(this.compareDouble(element.getxCord(), this.xCord) && this.compareDouble(element.getyCord(), this.getyCord())){
 				return true;
 			}
 		}

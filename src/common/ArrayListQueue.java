@@ -23,6 +23,10 @@ public class ArrayListQueue<Type> extends ArrayList<Type>{
 	public Type peekLast(){
 		return super.get(super.size()-1);
 	}
+	
+	public Type peekFirst(){
+		return super.get(0);
+	}
 
 	
 }

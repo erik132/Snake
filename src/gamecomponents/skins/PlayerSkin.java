@@ -1,4 +1,4 @@
-package gamecomponents;
+package gamecomponents.skins;
 
 import javax.media.opengl.GL2;
 
@@ -13,6 +13,7 @@ public class PlayerSkin extends VisualElement{
 
 	@Override
 	public void drawElement(GL2 gl) {
+		gl.glColor3f(1, 1, 0);
 		this.drawSquare(gl, 0.1);
 		
 	}

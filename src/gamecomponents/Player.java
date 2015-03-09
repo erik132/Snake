@@ -10,8 +10,9 @@ import common.ArrayListQueue;
 import common.Point;
 import engine.InputReceiver;
 import engine.VisualElement;
+import gamecomponents.skins.PlayerSkin;
 
-public class Player implements GameboardElement, InputReceiver{
+public class Player extends GameboardElement implements InputReceiver{
 	
 	private ArrayListQueue<VisualElement> skins = new ArrayListQueue<>();
 	
@@ -20,34 +21,35 @@ public class Player implements GameboardElement, InputReceiver{
 	
 	private int direction;
 	
-	private double moveStep = 0.1;
 	
 	public Player(){
 		this.direction = NO_DIRECTION;
 		
 	}
 	
-	public void initPlayer(){
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-		this.skins.add(new PlayerSkin(0,0,this.moveStep));
-	}
+	@Override
+	public void initElement(){
+		this.skins.add(new PlayerSkin(0,0,this.tileSize));
 
+	}
+	
+	@Override
 	public List<VisualElement> getSkin() {
 		return this.extractVisualList();
 	}
-
+	
+	@Override
 	public boolean detectCollision(Point point){
+		int i = 0;
+		
 		List<VisualElement> skins = this.extractVisualList();
-		for(VisualElement skin: skins){
-			if(skin.equals(point)){
+		
+		for(; i<(skins.size()-1); i++){
+			if(skins.get(i).equals(point)){
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -67,16 +69,16 @@ public class Player implements GameboardElement, InputReceiver{
 		
 		switch(this.direction){
 		case UP_KEY:
-			point.setY(point.getY() + this.moveStep);
+			point.setY(point.getY() + this.tileSize);
 			break;
 		case DOWN_KEY:
-			point.setY(point.getY() - this.moveStep);
+			point.setY(point.getY() - this.tileSize);
 			break;
 		case LEFT_KEY:
-			point.setX(point.getX() - this.moveStep);
+			point.setX(point.getX() - this.tileSize);
 			break;
 		case RIGHT_KEY:
-			point.setX(point.getX() + this.moveStep);
+			point.setX(point.getX() + this.tileSize);
 			break;
 		}
 		snakeSquare = this.skins.poll();
@@ -92,6 +94,7 @@ public class Player implements GameboardElement, InputReceiver{
 			skins.add(skinner.next());
 		}
 		return skins;
+		
 	}
 	
 	@Override
@@ -104,11 +107,22 @@ public class Player implements GameboardElement, InputReceiver{
 		
 	}
 	
-	public void setMoveStep(double step){
-		this.moveStep = step;
+	public void addSnakeTiles(int nrOfTiles){
+		Point point = this.skins.peekFirst().getPoint();
+		for(int i = 0; i< nrOfTiles; i++){
+			this.skins.addFront(new PlayerSkin(point.getX(), point.getY(),this.tileSize));
+		}
 	}
+	
 	
 	public int getPlayerSize(){
 		return this.skins.size();
+	}
+	
+	public void reset(int x, int y){
+		this.direction = NO_DIRECTION;
+		this.skins = new ArrayListQueue<>();
+		this.skins.add(new PlayerSkin(x, y, this.tileSize));
+		
 	}
 }

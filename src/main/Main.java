@@ -14,7 +14,7 @@ import com.jogamp.opengl.util.FPSAnimator;
 import engine.GameEngine;
 import gamecomponents.Gameboard;
 import gamecomponents.Player;
-import gamecomponents.PlayerSkin;
+import gamecomponents.skins.PlayerSkin;
 
 public class Main {
 	
