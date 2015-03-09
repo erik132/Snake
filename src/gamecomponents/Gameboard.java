@@ -9,9 +9,19 @@ import engine.VisualElement;
 
 public class Gameboard {
 	
+	public static int GAME_RUNNING = 0;
+	
+	public static int GAME_LOST = -1;
+	
+	public static int GAME_WON = 1;
+	
 	private List<GameboardElement> visibles = new ArrayList<>();
 	
 	private Player player;
+	
+	private int gameState = GAME_RUNNING;
+	
+	public static double TILE_SIZE = 0.1;
 	
 	public Gameboard(Player player){
 		populateBoard();
@@ -25,6 +35,8 @@ public class Gameboard {
 	private void placePlayer(Player player){
 		this.visibles.add(player);
 		this.player = player;
+		this.player.setMoveStep(TILE_SIZE);
+		this.player.initPlayer();
 	}
 	
 	
@@ -34,10 +46,28 @@ public class Gameboard {
 		if(point == null){
 			return ;
 		}
-
-		if(this.player.detectCollision(point)){
+		if(!this.detectLoss(point)){
+			this.detectVictory();
+		}
+		
+	}
+	
+	private boolean detectLoss(Point point){
+		if(this.player.detectCollision(point)  || this.detectEdgeCollision(point)){
 			this.loseGame();
-			return ;
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean detectEdgeCollision(Point point){
+		
+		return false;
+	}
+	
+	private void detectVictory(){
+		if(this.player.getPlayerSize()>=10){
+			this.winGame();
 		}
 	}
 	
@@ -59,10 +89,10 @@ public class Gameboard {
 	}
 	
 	public void winGame(){
-		
+		this.gameState = GAME_WON;
 	}
 	
 	public void loseGame(){
-		
+		this.gameState = GAME_LOST;
 	}
 }

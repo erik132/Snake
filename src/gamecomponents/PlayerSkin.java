@@ -6,8 +6,8 @@ import engine.VisualElement;
 
 public class PlayerSkin extends VisualElement{
 
-	public PlayerSkin(double x, double y) {
-		super(x, y);
+	public PlayerSkin(double x, double y, double tileSize) {
+		super(x, y, tileSize);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -11,9 +11,12 @@ public abstract class VisualElement {
 	
 	private double yCord;
 	
-	public VisualElement(double x, double y){
+	protected double tileSize;
+	
+	public VisualElement(double x, double y, double tileSize){
 		this.xCord = x;
 		this.yCord = y;
+		this.tileSize = tileSize;
 	}
 	
 	abstract public void drawElement(GL2 gl);
@@ -77,5 +80,9 @@ public abstract class VisualElement {
 
 	public void setyCord(double yCord) {
 		this.yCord = yCord;
+	}
+	
+	public void setTileSize(double size){
+		this.tileSize = size;
 	}
 }

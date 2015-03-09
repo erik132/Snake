@@ -6,14 +6,15 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import common.ArrayListQueue;
 import common.Point;
-
 import engine.InputReceiver;
 import engine.VisualElement;
 
 public class Player implements GameboardElement, InputReceiver{
 	
-	private Queue<VisualElement> skins = new ConcurrentLinkedQueue<>();
+	private ArrayListQueue<VisualElement> skins = new ArrayListQueue<>();
+	
 	
 	private int[] allowedKeys = {UP_KEY, DOWN_KEY, LEFT_KEY, RIGHT_KEY, NO_DIRECTION};
 	
@@ -22,10 +23,18 @@ public class Player implements GameboardElement, InputReceiver{
 	private double moveStep = 0.1;
 	
 	public Player(){
-		this.skins.add(new PlayerSkin(0,0));
-		System.out.println("is list empty? " + this.skins.isEmpty());
 		this.direction = NO_DIRECTION;
 		
+	}
+	
+	public void initPlayer(){
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
+		this.skins.add(new PlayerSkin(0,0,this.moveStep));
 	}
 
 	public List<VisualElement> getSkin() {
@@ -44,15 +53,17 @@ public class Player implements GameboardElement, InputReceiver{
 	
 	public Point move(){
 		VisualElement snakeSquare = null;
+		Point point = null;
+		
 		if(this.skins.isEmpty() == true){
 			return null;
 		}
 		if( this.direction == NO_DIRECTION){
 			return null;
 		}else{
-			snakeSquare = this.skins.poll();
+			point = this.skins.peekLast().getPoint();
 		}
-		Point point = snakeSquare.getPoint();
+		
 		
 		switch(this.direction){
 		case UP_KEY:
@@ -68,6 +79,7 @@ public class Player implements GameboardElement, InputReceiver{
 			point.setX(point.getX() + this.moveStep);
 			break;
 		}
+		snakeSquare = this.skins.poll();
 		snakeSquare.setPoint(point);
 		this.skins.add(snakeSquare);
 		return point;
@@ -84,12 +96,19 @@ public class Player implements GameboardElement, InputReceiver{
 	
 	@Override
 	public void receiveInput(int inputCode) {
-		System.out.println("receiver input" + inputCode);
 		for(int key: this.allowedKeys){
 			if(inputCode == key){
 				this.direction = inputCode;
 			}
 		}
 		
+	}
+	
+	public void setMoveStep(double step){
+		this.moveStep = step;
+	}
+	
+	public int getPlayerSize(){
+		return this.skins.size();
 	}
 }

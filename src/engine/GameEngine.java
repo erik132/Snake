@@ -118,7 +118,6 @@ public class GameEngine implements GLEventListener, KeyListener, MouseListener, 
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		//System.out.println(arg0.getKeyCode());
 		for(InputReceiver inputter : this.inputListeners){
 			inputter.receiveInput(arg0.getKeyCode());
 		}

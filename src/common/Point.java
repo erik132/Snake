@@ -6,6 +6,7 @@ public class Point {
 	
 	private double y;
 	
+	
 	public Point(double x,double y){
 		this.setX(x);
 		this.setY(y);
