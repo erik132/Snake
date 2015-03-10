@@ -26,13 +26,9 @@ public abstract class VisualElement extends MathLib{
 	protected void drawSquare(GL2 gl,double size){
         gl.glBegin(GL2.GL_QUADS);
         
-        //gl.glColor3f(1, 0, 0);
         gl.glVertex2d(this.xCord + size, this.yCord - size);
-        //gl.glColor3f(0, 1, 0);
         gl.glVertex2d(this.xCord + size, this.yCord);
-        //gl.glColor3f(0, 0, 1);
         gl.glVertex2d(this.xCord, this.yCord);
-        //gl.glColor3f(1, 1, 0);
         gl.glVertex2d(this.xCord, this.yCord - size);
         
         gl.glEnd();

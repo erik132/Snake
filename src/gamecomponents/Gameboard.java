@@ -94,7 +94,7 @@ public class Gameboard {
 		
 		double xd1 = x1;
 		double yd1 = y1;
-		xd1 = xd1 / 10 - 0.9;
+		xd1 = xd1 / 10 - 0.8;
 		yd1 = yd1 / 10 - 0.8;
 		Point point = new Point(xd1,yd1);
 		

@@ -1,10 +1,6 @@
 package gamecomponents;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import common.Point;
-import engine.VisualElement;
 import gamecomponents.skins.GameboardBorderSkin;
 
 public class GameboardBorder extends GameboardElement{
